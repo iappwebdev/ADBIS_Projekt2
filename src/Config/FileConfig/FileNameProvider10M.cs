@@ -1,14 +1,16 @@
-﻿using System.Reflection;
-
-namespace WatDiv.Config.FileConfig;
+﻿namespace WatDiv.Config.FileConfig;
 
 internal sealed class FileNameProvider10M : IFileNameProvider
 {
-    public string InputFile => "O:/WatDiv_InputData/watdiv.10M.nt";
+    private readonly string _dirSln;
 
-    public string OutputFile => "O:/WatDiv_OutputResults/result10M.txt";
+    public FileNameProvider10M() => _dirSln = FilePathProvider.TryGetSolutionDirectoryInfo().FullName;
 
-    public string OutputFileQueryResultsHashJoin => "O:/WatDiv_OutputResults/result10M_hash_join.txt";
+    public string InputFile => Path.Combine(_dirSln, "InputData/watdiv10M.txt");
 
-    public string OutputFileQueryResultsSortMergeJoin => "O:/WatDiv_OutputResults/result10M_sort_merge_join.txt";
+    public string OutputFile => Path.Combine(_dirSln, "OutputResults/result10M.txt");
+
+    public string OutputFileQueryResultsHashJoin => Path.Combine(_dirSln, "OutputResults/result10M_hash_join.txt");
+
+    public string OutputFileQueryResultsSortMergeJoin => Path.Combine(_dirSln, "OutputResults/result10M_sort_merge_join.txt");
 }

@@ -3,7 +3,7 @@ using WatDiv.Config.PropConfig;
 using WatDiv.Sanitizing;
 using WatDiv.WatDivProcessing;
 
-const bool isTestmode = true;
+const bool isTestmode = false;
 
 var processor = new WatDivProcessor(
     GetFileNameProvider(),

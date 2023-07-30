@@ -18,7 +18,7 @@ internal sealed class WatDivProcessor
     private readonly string _separator = new('#', 80);
 
     private StreamWriter _logFile = null!;
-    private const bool _calculateHashJoin = false;
+    private const bool _calculateHashJoin = true;
     private const bool _calculateSortMergeJoin = true;
 
     public WatDivProcessor(

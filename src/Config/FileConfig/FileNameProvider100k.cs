@@ -4,10 +4,7 @@ internal sealed class FileNameProvider100k : IFileNameProvider
 {
     private readonly string _dirSln;
 
-    public FileNameProvider100k()
-    {
-        _dirSln = FilePathProvider.TryGetSolutionDirectoryInfo().FullName;
-    }
+    public FileNameProvider100k() => _dirSln = FilePathProvider.TryGetSolutionDirectoryInfo().FullName;
 
     public string InputFile => Path.Combine(_dirSln, "InputData/watdiv100k.txt");
 
