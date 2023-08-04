@@ -52,16 +52,16 @@ internal sealed class WatDivProcessor
         _logFile.WriteLine($"Read lines of relevant properties: {string.Join(", ", _dictPropHashes.Keys)}");
 
         _sw.Start();
-        var triples = GetTriplesFromInput();
+        var relations = GetRelationsFromInput();
         _sw.Stop();
         _logFile.WriteLine($"Elapsed time: {_sw.Elapsed}");
-        _logFile.WriteLine($"{triples.Count:#,#} triples");
+        _logFile.WriteLine($"{relations.Count:#,#} relations");
         _logFile.WriteLine($"Build context for: {string.Join(", ", _dictPropHashes.Keys)}");
-        var context = new WatDivContext(_dictPropHashes, _propConfig, triples, _logFile);
+        var context = new WatDivContext(_dictPropHashes, _propConfig, relations, _logFile);
 
-        // Release memory for triples
+        // Release memory for relations
         // ReSharper disable once RedundantAssignment
-        triples = null;
+        relations = null;
 
         if (_calculateHashJoin)
         {
@@ -94,7 +94,7 @@ internal sealed class WatDivProcessor
         _logFile.WriteLine($"Elapsed time: {_sw.Elapsed}");
     }
 
-    private List<Relation> GetTriplesFromInput() =>
+    private List<Relation> GetRelationsFromInput() =>
         File.ReadLines(_fileNameProvider.InputFile)
             .Select(x => new Row(_sanitizer.GetSanitizedColumns(x)))
             .Where(x => _dictPropHashes.ContainsValue(x.PropertyHash))

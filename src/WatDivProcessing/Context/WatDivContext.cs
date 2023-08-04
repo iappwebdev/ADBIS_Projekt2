@@ -5,13 +5,12 @@ namespace WatDiv.WatDivProcessing.Context;
 
 internal sealed class WatDivContext
 {
-    public WatDivContext(Dictionary<string, Hash> dictPropHashes, IPropConfig propConfig, IReadOnlyCollection<Relation> triples, TextWriter resultFile)
+    public WatDivContext(Dictionary<string, Hash> dictPropHashes, IPropConfig propConfig, IReadOnlyCollection<Relation> relations, TextWriter resultFile)
     {
         var tables = dictPropHashes.Select(x => new KeyValuePair<Hash, List<Relation>>(x.Value, new List<Relation>())).ToDictionary();
-
         foreach (var table in tables)
         {
-            table.Value.AddRange(triples.Where(x => x.PropertyHash == table.Key));
+            table.Value.AddRange(relations.Where(x => x.PropertyHash == table.Key));
         }
 
         foreach (string prop in dictPropHashes.Keys)
@@ -26,10 +25,7 @@ internal sealed class WatDivContext
     }
 
     public IReadOnlyList<Relation> Follows { get; }
-
     public IReadOnlyList<Relation> FriendOf { get; }
-
     public IReadOnlyList<Relation> Likes { get; }
-
     public IReadOnlyList<Relation> HasReview { get; }
 }
